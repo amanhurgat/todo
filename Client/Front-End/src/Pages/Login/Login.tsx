@@ -1,9 +1,11 @@
 import React from "react";
 import { loginUser } from "../../Calls/user";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const navigate = useNavigate();
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -12,7 +14,7 @@ function Login() {
       console.log(response);
       if (response.success) {
         localStorage.setItem("token", response.token);
-        window.location.href = "/dashboard";
+        navigate("/dashboard");
       } else {
         console.log(response)
       }
@@ -82,7 +84,7 @@ function Login() {
         <p className="text-sm text-center">
           Don't have an account?{" "}
           <a
-            href="/signup"
+            onClick={() => navigate("/signup")}
             className="text-blue-600 hover:underline"
           >
             Sign up

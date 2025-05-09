@@ -80,7 +80,7 @@ function Signup() {
         </form>
         <p className="text-sm text-center text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-600 hover:underline">
+          <a onClick={()=>{navigate('/login')}} className="text-blue-600 hover:underline">
             Log in
           </a>
         </p>
