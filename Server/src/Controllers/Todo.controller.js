@@ -40,10 +40,7 @@ const getTodos = async (req, res) => {
     const filter = { owner };
 
     const todos = await Todo.find(filter);
-    const sortedTodos = todos.sort((a, b) => {
-      return new Date(a.dueDate) - new Date(b.dueDate);
-    });
-    res.status(200).json({ sortedTodos });
+    res.status(200).json({ todos });
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
   }
