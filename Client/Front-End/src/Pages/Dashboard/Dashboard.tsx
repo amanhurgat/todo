@@ -51,6 +51,11 @@ function Dashboard() {
       newTodo.dueDate,
       "pending"
     );
+
+    newTodo.title = "";
+    newTodo.description = "";
+    newTodo.dueDate = "";
+    
     setUpdate(!update);
     console.log(response);
   };
