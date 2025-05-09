@@ -1,5 +1,4 @@
 import { axiosInstance } from "../../Utils";
-const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL;
 
 async function loginUser(email: string, password: string) {
     try {
