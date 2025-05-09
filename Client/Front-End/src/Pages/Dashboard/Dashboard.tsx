@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchTodos, addTodo, updateTodo, deleteTodo } from "../../Calls/Todos";
 import { logoutUser } from "../../Calls/user";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const [todos, setTodos] = useState<
@@ -12,6 +13,7 @@ function Dashboard() {
       status: string;
     }[]
   >([]);
+  const navigate = useNavigate();
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [update, setUpdate] = useState(false);
@@ -85,7 +87,7 @@ function Dashboard() {
       console.log(response);
       if (response.success) {
         localStorage.removeItem("token");
-        window.location.href = "/login";
+        navigate("/login");
       } else {
         console.error("Logout failed:", response.message);
       }
@@ -105,13 +107,11 @@ function Dashboard() {
           darkMode ? "bg-gray-800" : "bg-white"
         }`}
       >
-        {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
           <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">
             To-Do Dashboard
           </h1>
           <div className="flex items-center space-x-4">
-            {/* Dark Mode Toggle */}
             <label className="flex items-center cursor-pointer">
               <span className="mr-2 text-sm">
                 {darkMode ? "Dark Mode" : "Light Mode"}
@@ -129,7 +129,6 @@ function Dashboard() {
                 ></div>
               </div>
             </label>
-            {/* Logout Button */}
             <button
               onClick={(e) => {
                 handleLogout(e);
@@ -141,14 +140,12 @@ function Dashboard() {
           </div>
         </div>
 
-        {/* Loader */}
         {loading ? (
           <div className="flex justify-center items-center min-h-[200px]">
             <div className="loader border-t-4 border-blue-600 rounded-full w-12 h-12 animate-spin"></div>
           </div>
         ) : (
           <>
-            {/* Add New To-Do */}
             <div className="mb-6">
               <h2 className="text-lg sm:text-xl font-semibold mb-4">
                 Add New To-Do
@@ -199,8 +196,6 @@ function Dashboard() {
                 </button>
               </div>
             </div>
-
-            {/* Filter To-Dos */}
             <div className="mb-6">
               <h2 className="text-lg sm:text-xl font-semibold mb-4">
                 Filter To-Dos
@@ -238,8 +233,6 @@ function Dashboard() {
                 </button>
               </div>
             </div>
-
-            {/* To-Do List */}
             <div>
               <h2 className="text-lg sm:text-xl font-semibold mb-4">
                 Your To-Dos
