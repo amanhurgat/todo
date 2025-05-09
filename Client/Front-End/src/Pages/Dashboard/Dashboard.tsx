@@ -53,9 +53,9 @@ function Dashboard() {
     console.log(response);
   };
 
-  const handleUpdateTodo = (todo: any, updatedTodo: any) => {
+  const handleUpdateTodo = async (todo: any, updatedTodo: any) => {
     const id = todo._id;
-    const response = updateTodo(id, updatedTodo);
+    await updateTodo(id, updatedTodo);
     setUpdate(!update);
   };
 
