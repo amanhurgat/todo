@@ -6,7 +6,7 @@ const createTodo = async (req, res) => {
   try {
     const { title, description, dueDate, status } = req.body;
     const token = req.token;
-    console.log("token", token);
+    console.log("create todo token", token);
     const decoded =await jwt.verify(token, process.env.JWT_SECRET);
     console.log("decoded", decoded);
     const owner =await User.findById(decoded.userId);

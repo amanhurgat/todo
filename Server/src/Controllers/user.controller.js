@@ -76,7 +76,7 @@ const register = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        const token = req.headers['authorization'];
+        const token = req.token;
         console.log("token", token);
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.userId);
