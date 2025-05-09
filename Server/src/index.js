@@ -10,6 +10,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 const allowedOrigins = [
   "https://todo-eta-eight-15.vercel.app",
   "http://localhost:5173",

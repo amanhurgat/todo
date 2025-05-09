@@ -29,7 +29,6 @@ function Login() {
       <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
         <h1 className="text-2xl font-bold text-center">Login</h1>
         <form onSubmit={(e)=>handleLogin(e)} className="space-y-4">
-          {/* Email Field */}
           <div>
             <label
               htmlFor="email"
@@ -49,7 +48,6 @@ function Login() {
             />
           </div>
 
-          {/* Password Field */}
           <div>
             <label
               htmlFor="password"
@@ -69,7 +67,6 @@ function Login() {
             />
           </div>
 
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
@@ -80,7 +77,6 @@ function Login() {
           </div>
         </form>
 
-        {/* Additional Links */}
         <p className="text-sm text-center">
           Don't have an account?{" "}
           <a

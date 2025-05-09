@@ -5,7 +5,7 @@ const User = require("../Models/User.model");
 const createTodo = async (req, res) => {
   try {
     const { title, description, dueDate, status } = req.body;
-    const token = req.headers["authorization"];
+    const token = req.token;
     console.log("token", token);
     const decoded =await jwt.verify(token, process.env.JWT_SECRET);
     console.log("decoded", decoded);
@@ -32,7 +32,7 @@ const createTodo = async (req, res) => {
 
 const getTodos = async (req, res) => {
   try {
-    const token = req.headers["authorization"];
+    const token = req.token;
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 
     const owner = decoded.userId;
@@ -96,7 +96,7 @@ const markAsCompleted = async (req, res) => {
     console.log("markAsCompleted called")
     const { id } = req.params;
     console.log("id", id)
-    const token = req.headers["authorization"];
+    const token = req.body.token;
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
     const ownerId = decoded.userId
     console.log("ownerId", ownerId)

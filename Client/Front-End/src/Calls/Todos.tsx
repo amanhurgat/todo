@@ -2,7 +2,7 @@ import { axiosInstance } from "../../Utils";
 
 async function fetchTodos() {
     try {
-        const response = await axiosInstance.get("http://localhost:5000/todos");
+        const response = await axiosInstance.get("/todos");
         return response.data;
     } catch (error) {
         console.error("Error fetching todos:", error);
