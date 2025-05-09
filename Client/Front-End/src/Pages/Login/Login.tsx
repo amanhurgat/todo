@@ -13,6 +13,7 @@ function Login() {
       const response = await loginUser(email, password);
       console.log(response);
       if (response.success) {
+        console.log("Login successful:", response);
         localStorage.setItem("token", response.token);
         navigate("/dashboard");
       } else {

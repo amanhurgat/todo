@@ -28,7 +28,6 @@ app.use(
     credentials: true,
   })
 );
-//app.use(cors({origin:'https://todo-eta-eight-15.vercel.app/' |'http://localhost:5173', credentials: true}));
 app.use(bodyParser.json());
 
 userRoutes(app);

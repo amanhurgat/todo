@@ -13,15 +13,15 @@ function Signup() {
     console.log(response);
     if (response.success) {
       localStorage.setItem("token", response.token);
-      navigate("/dashboard"); // Redirect to dashboard on successful signup
+      navigate("/dashboard"); 
     }
     else {
       if(response.message === "User already exists") {
         alert("User already exists. Please log in.");
-        navigate("/login"); // Redirect to login page if user already exists
+        navigate("/login"); 
       }
       else {
-        alert("Signup failed: " + response.message); // Show error message
+        alert("Signup failed: " + response.message); 
       }
     }
   };
@@ -47,7 +47,7 @@ function Signup() {
               placeholder="Enter your email"
               className="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
               value={email}
-              onChange={(e) => setEmail(e.target.value)} // Update email state
+              onChange={(e) => setEmail(e.target.value)} 
               required
             />
           </div>
@@ -65,7 +65,7 @@ function Signup() {
               placeholder="Enter your password"
               className="w-full px-4 py-2 mt-1 text-gray-900 bg-gray-100 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
               value={password}
-              onChange={(e) => setPassword(e.target.value)} // Update password state
+              onChange={(e) => setPassword(e.target.value)} 
               required
             />
           </div>

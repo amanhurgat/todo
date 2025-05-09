@@ -16,6 +16,7 @@ function Dashboard() {
   const navigate = useNavigate();
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false); 
   const [update, setUpdate] = useState(false);
   const [newTodo, setNewTodo] = useState({
     title: "",
@@ -28,6 +29,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await fetchTodos();
         console.log(response.todos);
         setTodos(response.todos);
@@ -45,41 +47,70 @@ function Dashboard() {
       alert("Please fill in all fields.");
       return;
     }
-    const response = await addTodo(
-      newTodo.title,
-      newTodo.description,
-      newTodo.dueDate,
-      "pending"
-    );
-
-    newTodo.title = "";
-    newTodo.description = "";
-    newTodo.dueDate = "";
-    
-    setUpdate(!update);
-    console.log(response);
+    try {
+      setActionLoading(true); 
+      const response = await addTodo(
+        newTodo.title,
+        newTodo.description,
+        newTodo.dueDate,
+        "pending"
+      );
+      console.log(response);
+      setNewTodo({
+        title: "",
+        description: "",
+        dueDate: "",
+        status: "pending",
+      });
+      setUpdate(!update);
+    } catch (error) {
+      console.error("Error adding todo:", error);
+    } finally {
+      setActionLoading(false); 
+    }
   };
 
   const handleUpdateTodo = async (todo: any, updatedTodo: any) => {
-    const id = todo._id;
-    await updateTodo(id, updatedTodo);
-    setUpdate(!update);
+    try {
+      setActionLoading(true); 
+      const id = todo._id;
+      await updateTodo(id, updatedTodo);
+      setUpdate(!update);
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    } finally {
+      setActionLoading(false); 
+    }
   };
 
   const handleDeleteTodo = async (id: any) => {
-    console.log(id._id);
-    const response = await deleteTodo(id._id);
-    console.log(response);
-    setUpdate(!update);
+    try {
+      setActionLoading(true);
+      console.log(id._id);
+      const response = await deleteTodo(id._id);
+      console.log(response);
+      setUpdate(!update);
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    } finally {
+      setActionLoading(false); 
+    }
   };
 
   const handleMarkAsCompleted = async (todo: any) => {
-    const id = todo._id;
-    todo.status = "completed";
-    console.log(todo);
-    const response = await updateTodo(id, todo);
-    console.log(response);
-    setUpdate(!update);
+    try {
+      setActionLoading(true); 
+      const id = todo._id;
+      todo.status = "completed";
+      console.log(todo);
+      const response = await updateTodo(id, todo);
+      console.log(response);
+      setUpdate(!update);
+    } catch (error) {
+      console.error("Error marking todo as completed:", error);
+    } finally {
+      setActionLoading(false); 
+    }
   };
 
   const filteredTodos =
@@ -196,11 +227,13 @@ function Dashboard() {
                 <button
                   onClick={handleAddTodo}
                   className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  disabled={actionLoading} // Disable button while loading
                 >
-                  Add To-Do
+                  {actionLoading ? "Adding..." : "Add To-Do"}
                 </button>
               </div>
             </div>
+
             <div className="mb-6">
               <h2 className="text-lg sm:text-xl font-semibold mb-4">
                 Filter To-Dos
@@ -238,6 +271,7 @@ function Dashboard() {
                 </button>
               </div>
             </div>
+
             <div>
               <h2 className="text-lg sm:text-xl font-semibold mb-4">
                 Your To-Dos
@@ -278,8 +312,9 @@ function Dashboard() {
                           <button
                             onClick={() => handleMarkAsCompleted(todo)}
                             className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                            disabled={actionLoading} // Disable button while loading
                           >
-                            Mark as Completed
+                            {actionLoading ? "Marking..." : "Mark as Completed"}
                           </button>
                         )}
                         <button
@@ -300,14 +335,16 @@ function Dashboard() {
                             })
                           }
                           className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700"
+                          disabled={actionLoading}
                         >
-                          Update
+                          {actionLoading ? "Updating..." : "Update"}
                         </button>
                         <button
                           onClick={() => handleDeleteTodo(todo)}
                           className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                          disabled={actionLoading}
                         >
-                          Delete
+                          {actionLoading ? "Deleting..." : "Delete"}
                         </button>
                       </div>
                     </li>
