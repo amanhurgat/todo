@@ -11,7 +11,7 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 const allowedOrigins = [
-  "https://todo-eta-eight-15.vercel.app/",
+  "https://todo-eta-eight-15.vercel.app",
   "http://localhost:5173",
 ];
 
