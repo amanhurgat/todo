@@ -40,7 +40,10 @@ const getTodos = async (req, res) => {
     const filter = { owner };
 
     const todos = await Todo.find(filter);
-    res.status(200).json({ todos });
+    const sortedTodos = todos.sort((a, b) => {
+      return new Date(a.dueDate) - new Date(b.dueDate);
+    });
+    res.status(200).json({ sortedTodos });
   } catch (error) {
     res.status(500).json({ message: "Internal server error", error });
   }
@@ -71,7 +74,7 @@ const updateTodo = async (req, res) => {
 const deleteTodo = async (req, res) => {
   try {
     const { id } = req.params;
-    const token = req.headers["authorization"];
+    const token = req.token
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
     const owner = decoded.userId;
     console.log("owner", owner);
