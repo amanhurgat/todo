@@ -59,14 +59,14 @@ const register = async (req, res) => {
         const refreshToken = jwt.sign(
             { userId: newUser._id },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '30d' } // or '7d'
+            { expiresIn: '30d' } 
         );
         return res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: true,            // true in production with HTTPS
+            secure: true,          
             sameSite: 'strict',
-            path: '/auth/refresh',   // restrict cookie access
-            maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in ms
+            path: '/auth/refresh',   
+            maxAge: 30 * 24 * 60 * 60 * 1000,
         }).status(201).json({ token, user: { id: newUser._id, email: newUser.email } });
 
     } catch (error) {

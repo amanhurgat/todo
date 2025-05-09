@@ -68,8 +68,6 @@ const updateTodo = async (req, res) => {
     res.status(500).json({ message: "Internal server error", error });
   }
 };
-
-// Delete a to-do
 const deleteTodo = async (req, res) => {
   try {
     const { id } = req.params;
