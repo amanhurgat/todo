@@ -12,7 +12,7 @@ async function fetchTodos() {
 
 async function addTodo(title: string, description: string, dueDate: string,status: string) {
     try {
-        const response = await axiosInstance.post("http://localhost:5000/todos", {
+        const response = await axiosInstance.post("/todos", {
             title,
             description,
             dueDate,
@@ -28,7 +28,7 @@ async function addTodo(title: string, description: string, dueDate: string,statu
 
 async function updateTodo(id: number, updatedTodo: any) {
     try {
-        const response = await axiosInstance.put(`http://localhost:5000/todos/${id}`, updatedTodo);
+        const response = await axiosInstance.put(`/todos/${id}`, updatedTodo);
         return response.data;
     } catch (error) {
         console.error("Error updating todo:", error);
@@ -38,7 +38,7 @@ async function updateTodo(id: number, updatedTodo: any) {
 
 async function deleteTodo(id: number) {
     try {
-        const response = await axiosInstance.delete(`http://localhost:5000/todos/${id}`);
+        const response = await axiosInstance.delete(`/todos/${id}`);
         return response.data;
     } catch (error) {
         console.error("Error deleting todo:", error);

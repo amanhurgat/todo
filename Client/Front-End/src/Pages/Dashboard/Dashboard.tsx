@@ -96,18 +96,22 @@ function Dashboard() {
 
   return (
     <div
-      className={`min-h-screen p-6 ${
+      className={`min-h-screen p-4 sm:p-6 ${
         darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
       }`}
     >
       <div
-        className={`max-w-4xl mx-auto p-6 rounded-lg shadow-md ${
+        className={`max-w-4xl mx-auto p-4 sm:p-6 rounded-lg shadow-md ${
           darkMode ? "bg-gray-800" : "bg-white"
         }`}
       >
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">To-Do Dashboard</h1>
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 space-y-4 sm:space-y-0">
+          <h1 className="text-2xl sm:text-3xl font-bold text-center sm:text-left">
+            To-Do Dashboard
+          </h1>
           <div className="flex items-center space-x-4">
+            {/* Dark Mode Toggle */}
             <label className="flex items-center cursor-pointer">
               <span className="mr-2 text-sm">
                 {darkMode ? "Dark Mode" : "Light Mode"}
@@ -125,6 +129,7 @@ function Dashboard() {
                 ></div>
               </div>
             </label>
+            {/* Logout Button */}
             <button
               onClick={(e) => {
                 handleLogout(e);
@@ -135,14 +140,19 @@ function Dashboard() {
             </button>
           </div>
         </div>
+
+        {/* Loader */}
         {loading ? (
           <div className="flex justify-center items-center min-h-[200px]">
             <div className="loader border-t-4 border-blue-600 rounded-full w-12 h-12 animate-spin"></div>
           </div>
         ) : (
           <>
+            {/* Add New To-Do */}
             <div className="mb-6">
-              <h2 className="text-xl font-semibold mb-4">Add New To-Do</h2>
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">
+                Add New To-Do
+              </h2>
               <div className="space-y-4">
                 <input
                   type="text"
@@ -189,9 +199,13 @@ function Dashboard() {
                 </button>
               </div>
             </div>
+
+            {/* Filter To-Dos */}
             <div className="mb-6">
-              <h2 className="text-xl font-semibold mb-4">Filter To-Dos</h2>
-              <div className="flex space-x-4">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">
+                Filter To-Dos
+              </h2>
+              <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setFilter("all")}
                   className={`px-4 py-2 rounded-lg ${
@@ -224,8 +238,12 @@ function Dashboard() {
                 </button>
               </div>
             </div>
+
+            {/* To-Do List */}
             <div>
-              <h2 className="text-xl font-semibold mb-4">Your To-Dos</h2>
+              <h2 className="text-lg sm:text-xl font-semibold mb-4">
+                Your To-Dos
+              </h2>
               {filteredTodos.length === 0 ? (
                 <p className="text-gray-600">No to-dos found.</p>
               ) : (
@@ -257,7 +275,7 @@ function Dashboard() {
                           {todo.status}
                         </span>
                       </p>
-                      <div className="flex flex-wrap space-x-4 mt-4">
+                      <div className="flex flex-wrap gap-2 mt-4">
                         {todo.status === "pending" && (
                           <button
                             onClick={() => handleMarkAsCompleted(todo)}

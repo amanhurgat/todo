@@ -9,6 +9,7 @@ const login = async (req, res) => {
     if (!email || !password) {
         res.status(400).json({ error: "All fields are mandatory" });
     }
+    console.log("email", email);
     try{
         const user = await User.findOne({ email: email });
         if (!user) {
