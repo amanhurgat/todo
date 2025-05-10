@@ -6,11 +6,8 @@ const createTodo = async (req, res) => {
   try {
     const { title, description, dueDate, status } = req.body;
     const token = req.token;
-    console.log("create todo token", token);
     const decoded =await jwt.verify(token, process.env.JWT_SECRET);
-    console.log("decoded", decoded);
     const owner =await User.findById(decoded.userId);
-    console.log("owner", owner)
 
     const newTodo = new Todo({
       title,
@@ -49,7 +46,6 @@ const getTodos = async (req, res) => {
 const updateTodo = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log("id", id);
     const { title, description, dueDate, status } = req.body;
     const updatedTodo = await Todo.findOneAndUpdate(
       { _id: id}, 
@@ -68,13 +64,13 @@ const updateTodo = async (req, res) => {
     res.status(500).json({ message: "Internal server error", error });
   }
 };
+
 const deleteTodo = async (req, res) => {
   try {
     const { id } = req.params;
     const token = req.token
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
     const owner = decoded.userId;
-    console.log("owner", owner);
 
     const deletedTodo = await Todo.findOneAndDelete({
       _id: id 
@@ -91,21 +87,16 @@ const deleteTodo = async (req, res) => {
 };
 
 const markAsCompleted = async (req, res) => {
-  console.log("markAsCompleted called")
   try {
-    console.log("markAsCompleted called")
     const { id } = req.params;
-    console.log("id", id)
     const token = req.body.token;
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
     const ownerId = decoded.userId
-    console.log("ownerId", ownerId)
     const updatedTodo = await Todo.findOneAndUpdate(
       { _id: id },
       { status: "completed" },
       { new: true } 
     );
-    console.log("updatedTodo", updatedTodo)
 
     if (!updatedTodo) {
       return res.status(404).json({ message: "To-do not found" });

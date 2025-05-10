@@ -31,11 +31,9 @@ function Dashboard() {
       try {
         setLoading(true);
         const response = await fetchTodos();
-        console.log(response.todos);
         setTodos(response.todos);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching todos:", error);
         setLoading(false);
       }
     };
@@ -86,7 +84,6 @@ function Dashboard() {
   const handleDeleteTodo = async (id: any) => {
     try {
       setActionLoading(true);
-      console.log(id._id);
       const response = await deleteTodo(id._id);
       console.log(response);
       setUpdate(!update);
@@ -102,9 +99,7 @@ function Dashboard() {
       setActionLoading(true); 
       const id = todo._id;
       todo.status = "completed";
-      console.log(todo);
       const response = await updateTodo(id, todo);
-      console.log(response);
       setUpdate(!update);
     } catch (error) {
       console.error("Error marking todo as completed:", error);
@@ -120,7 +115,6 @@ function Dashboard() {
     e.preventDefault();
     try {
       const response = await logoutUser();
-      console.log(response);
       if (response.success) {
         localStorage.removeItem("token");
         navigate("/login");

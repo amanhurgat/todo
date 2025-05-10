@@ -27,7 +27,6 @@ async function registerUser(email: string, password: string) {
     );
     return response.data;
   } catch (error: any) {
-    console.log(error.response.data.message);
     return { success: false, message: error.response.data.message };
   }
 }
@@ -39,7 +38,6 @@ async function logoutUser() {
     });
     return response.data;
   } catch (error) {
-    console.error("Error logging out:", error);
     throw error;
   }
 }

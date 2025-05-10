@@ -9,7 +9,6 @@ const login = async (req, res) => {
     if (!email || !password) {
         res.status(400).json({ error: "All fields are mandatory" });
     }
-    console.log("email", email);
     try{
         const user = await User.findOne({ email: email });
         if (!user) {
@@ -77,10 +76,8 @@ const register = async (req, res) => {
 const logout = async (req, res) => {
     try {
         const token = req.token;
-        console.log("token", token);
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const user = await User.findById(decoded.userId);
-        console.log("user", user);
         user.token = null;
         user.refreshToken = null;
 

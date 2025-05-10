@@ -2,9 +2,7 @@ const jwt=require('jsonwebtoken');
 const User=require('../Models/User.model');
 
 const verifyToken=async (req,res,next)=>{
-    console.log('Middleware called');
     const token =await req.headers.authorization?.split(' ')[1];
-    console.log('Token:',token);
     req.token=token
     if(!token){
         return res.status(403).json({message:'No token provided'});
