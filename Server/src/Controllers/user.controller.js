@@ -60,6 +60,9 @@ const register = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '30d' } 
         );
+        newUser.token = token;
+        newUser.refreshToken = refreshToken;
+        await newUser.save();
         return res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: true,          
@@ -82,8 +85,13 @@ const logout = async (req, res) => {
         user.refreshToken = null;
 
         user.save();
+        res.clearCookie('refreshToken', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+        }).status(200).json({ message: 'Logged out successfully',success:true });
 
-        return res.status(200).json({ message: 'Logged out successfully',success:true });
+        //return res.clearCookie('refreshToken').status(200).json({ message: 'Logged out successfully',success:true });
     } catch (error) {
         return res.status(500).json({ message: 'Server error',success:false });
     }
